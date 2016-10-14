@@ -1,0 +1,52 @@
+﻿@model WebApplication.Models.Editare
+@{
+    ViewBag.Title = "Vizualizare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>@ViewBag.Title.</h2>
+
+
+@using (Html.BeginForm("Edit", "Editarea", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <form method="post">
+        <fieldset>
+            <legend>Person information</legend>
+
+            <p>
+                <label for="UserName">UserName:</label>
+                <input type="text" name="UserName" value="@Model.UserName" />
+            </p>
+
+            <p>
+                <label for="FirstName">FirstName:</label>
+                <input type="text" name="FirstName" value="@Model.FirstName" />
+            </p>
+
+            <p>
+                <label for="LastName">LastName:</label>
+                <input type="text" name="LastName" value="@Model.LastName" />
+            </p>
+
+            <p>
+                <label for="Email">Email:</label>
+                <input type="email" name="Email" value="@Model.Email" />
+            </p>
+
+            <p>
+                <label for="NrTelefon">NrTelefon:</label>
+                <input type="text" name="NrTelefon" value="@Model.NrTelefon" />
+            </p>
+
+            <p>
+                <label for="Parola">Parola:</label>
+                <input type="password" name="Parola" value="@Model.Password" />
+            </p>
+            <input type="hidden" name="ID" value="@Model.UserId" />
+            <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+        </fieldset>
+    </form>
+}
+

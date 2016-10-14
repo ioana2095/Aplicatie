@@ -168,6 +168,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\Editare.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Vizualizare.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -227,6 +228,7 @@
     <Content Include="Views\AccountNou\Index.cshtml" />
     <Content Include="Views\AccountNou\AdminPage.cshtml" />
     <Content Include="Views\Editare\Vizualizare.cshtml" />
+    <Content Include="Views\Editare\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

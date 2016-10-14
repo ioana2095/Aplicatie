@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication.DTO;
@@ -16,32 +17,32 @@ namespace WebApplication.Controllers
         {
             return View();
         }
+
         public ActionResult Vizualizare()
         {
             List<Vizualizare> model = new List<Vizualizare>();
+            User U = new User();
+            model = U.Viz();
+            return View(model);
+        }
+        public ActionResult Edit(string UserName)
+        {
+            Editare model = new Editare();
+            User U = new User();
+            model = U.Editare(UserName);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
             return View(model);
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Vizualizare(Vizualizare model)
+        public ActionResult Edit(Editare model)
         {
-            User U=new User();
-            List<string> list = new List<string>();
-            if (ModelState.IsValid)
-            {
-                var user = U.Viz(list);
-                if (user != null)
-                {
-                   
-                }
-                else
-                {
-                    ModelState.AddModelError("", "I can not access the database.");
-                }
-            }
-            return View();
-        }
 
-	}
+            return View(model);
+        }
+    }
 }
