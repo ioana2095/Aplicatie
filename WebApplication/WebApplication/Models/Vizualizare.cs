@@ -9,6 +9,10 @@ namespace WebApplication.Models
     public class Vizualizare
     {
         [Required]
+        [Display(Name = "Id")]
+        public int UserId { get; set; }
+
+        [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 

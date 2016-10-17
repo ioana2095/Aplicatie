@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "AdminPage";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -11,15 +10,12 @@
 {
     @Html.AntiForgeryToken()
 
-<div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default">Lista utilizatori</button>
-    <button type="button" class="btn btn-default">Creare</button>
-    <button type="button" class="btn btn-default">Update</button>
-    <button type="button" class="btn btn-default">Delete</button>
-    <button type="button" class="btn btn-default">DeleteAll</button>
-</div>
-}   
-    <div>
+    <div class="btn-group" role="group" aria-label="...">
+        @Html.ActionLink("Vizualizare", "Vizualizare", "Editare") |
+        @Html.ActionLink("Details", "Vizualizare", "Editare")
+    </div>
+}
+<div>
     @Html.ActionLink("Back to List", "AdminPage")
 </div>
 

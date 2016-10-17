@@ -17,7 +17,7 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-
+        
         public ActionResult Vizualizare()
         {
             List<Vizualizare> model = new List<Vizualizare>();
@@ -25,11 +25,22 @@ namespace WebApplication.Controllers
             model = U.Viz();
             return View(model);
         }
-        public ActionResult Edit(string UserName)
+        public ActionResult Edit(int UserId)
+        {
+            Editare model=new Editare();
+            User U = new User();
+            model = U.Editare(UserId);
+            if (model == null)
+            {
+                return HttpNotFound();
+            }
+            return View(model);
+        }
+        public ActionResult Details(int UserId)
         {
             Editare model = new Editare();
             User U = new User();
-            model = U.Editare(UserName);
+            model = U.Detalii(UserId);
             if (model == null)
             {
                 return HttpNotFound();
@@ -41,8 +52,27 @@ namespace WebApplication.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Editare model)
         {
-
-            return View(model);
+            User U=new User();
+            if (ModelState.IsValid)
+            {
+                bool user = U.Editare(Convert.ToInt32(model.UserId), model.UserName, model.FirstName, model.LastName, model.Email, model.NrTelefon, model.Password);
+                if (user != false)
+                {
+                    return RedirectToAction("Vizualizare", "Editare");
+                }
+            }
+            return Vizualizare();
         }
-    }
+        public ActionResult Delete(int UserId)
+        {
+            
+            User U = new User();
+            var user = U.Delete(UserId);
+            if (user !=false)
+            {
+                return RedirectToAction("Vizualizare", "Editare");
+            }
+            return View();
+        }
+	}
 }

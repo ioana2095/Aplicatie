@@ -229,6 +229,7 @@
     <Content Include="Views\AccountNou\AdminPage.cshtml" />
     <Content Include="Views\Editare\Vizualizare.cshtml" />
     <Content Include="Views\Editare\Edit.cshtml" />
+    <Content Include="Views\Editare\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
