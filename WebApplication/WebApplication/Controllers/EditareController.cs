@@ -9,10 +9,12 @@ using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
+    
     public class EditareController : Controller
     {
         //
         // GET: /Editare/
+        
         public ActionResult Index()
         {
             return View();
@@ -22,6 +24,7 @@ namespace WebApplication.Controllers
         {
             List<Vizualizare> model = new List<Vizualizare>();
             User U = new User();
+            U.uniune();
             model = U.Viz();
             return View(model);
         }
@@ -29,6 +32,7 @@ namespace WebApplication.Controllers
         {
             Editare model=new Editare();
             User U = new User();
+            U.uniune();
             model = U.Editare(UserId);
             if (model == null)
             {
@@ -40,6 +44,7 @@ namespace WebApplication.Controllers
         {
             Editare model = new Editare();
             User U = new User();
+            U.uniune();
             model = U.Detalii(UserId);
             if (model == null)
             {
@@ -53,6 +58,7 @@ namespace WebApplication.Controllers
         public ActionResult Edit(Editare model)
         {
             User U=new User();
+            U.uniune();
             if (ModelState.IsValid)
             {
                 bool user = U.Editare(Convert.ToInt32(model.UserId), model.UserName, model.FirstName, model.LastName, model.Email, model.NrTelefon, model.Password);
@@ -67,6 +73,7 @@ namespace WebApplication.Controllers
         {
             
             User U = new User();
+            U.uniune();
             var user = U.Delete(UserId);
             if (user !=false)
             {

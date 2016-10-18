@@ -15,6 +15,16 @@ namespace WebApplication.DTO
 
         static string cale = System.Configuration.ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
         SqlConnection myCommand = new SqlConnection(cale);
+
+        public void uniune()
+        {
+            myCommand.Open();
+            string queryStr = "SELECT * FROM Role FULL OUTER JOIN User1 on User1(RoleId)=Role(RoleId) ";
+            SqlCommand comend = new SqlCommand(queryStr);
+            comend.Connection = myCommand;
+            myCommand.Close();
+           // comend.ExecuteNonQuery();
+        }
   
         public bool Introducere(string UserName, string FirstName, string LastName, string Email, string NrTelefon, string parola)
         {
@@ -30,7 +40,7 @@ namespace WebApplication.DTO
             return false;
            
         }
-        public bool Logare(string UserName, string parola)
+        public string Logare(string UserName, string parola)
         {
             string comanda = "SELECT * FROM User1";
             SqlCommand comm = new SqlCommand(comanda,myCommand);
@@ -42,8 +52,12 @@ namespace WebApplication.DTO
                 reader = comm.ExecuteReader();
                 while (reader.Read())
                 {
-                    if (reader["UserName"].ToString().Equals(UserName) != false && reader["Parola"].ToString().Equals(parola) != false)
-                        return true;
+                    if (reader["UserName"].ToString().Equals(UserName) != false && reader["Parola"].ToString().Equals(parola) != false){
+                        if (Convert.ToInt32(reader["RoleId"]) == 1)
+                            return "ADMIN";
+                        else
+                            return "USER";
+                     }
 
                 }
                 reader.Close();
@@ -53,13 +67,7 @@ namespace WebApplication.DTO
             {
                 
             }
-            return false;
-        }
-        public bool LogAdmin(string UserName, string parola)
-        {
-            if (UserName.Equals("Administrator") != false && parola.Equals("12FG89tr") != false)
-                return true;
-            return false;
+            return null;
         }
         public List<Vizualizare> Viz()
         {

@@ -14,7 +14,6 @@ namespace WebApplication.Controllers
 {
     public class AccountNouController : Controller
     {
-
         //
         // GET: /AccountControllerNou/
         [Authorize]
@@ -22,7 +21,7 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        //[Authorize]
+        [Authorize(Roles = "ADMIN")]
         public ActionResult AdminPage()
         {
             return View();
@@ -30,7 +29,6 @@ namespace WebApplication.Controllers
         //[Authorize]
         public ActionResult Login()
         {
-            //ViewBag.Url = returnUrl;
             return View();
         }
        
@@ -40,17 +38,20 @@ namespace WebApplication.Controllers
         public ActionResult Login(LoginModel model)
         {
             User U=new User();
+            U.uniune();
             if(ModelState.IsValid)
             {
                 var user = U.Logare(model.UserName, model.Password);
-                if(user!=false)
+                if(user=="USER")
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false);
                     return RedirectToAction("Index", "AccountNou");
                 }
 
-                    if (U.LogAdmin(model.UserName, model.Password)!=false)
+                    if (user=="ADMIN")
                     {
+                        //Roles.FindUsersInRole("Administrator", "Administrator");
+                        FormsAuthentication.SetAuthCookie(model.UserName, false);
                         return RedirectToAction("AdminPage", "AccountNou");
                     }
                     else
@@ -72,7 +73,7 @@ namespace WebApplication.Controllers
         public ActionResult Create( RegisterModel model)
         {
             User U=new User();
-            
+            U.uniune();
             if (ModelState.IsValid)
             {
                 bool user =U.Introducere(model.UserName, model.FirstName, model.LastName, model.Email, model.NrTelefon, model.Password);
